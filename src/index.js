@@ -38,7 +38,8 @@ const IPropTypes = {
 	renderStickyHeader: func,
 	stickyHeaderHeight: number,
 	contentContainerStyle: ViewPropTypes.style,
-	outputScaleValue: number
+	outputScaleValue: number,
+	disableFooterCalc: bool,
 }
 
 class ParallaxScrollView extends Component {
@@ -88,6 +89,7 @@ class ParallaxScrollView extends Component {
 			style,
 			contentContainerStyle,
 			outputScaleValue,
+			disableFooterCalc
 			...scrollViewProps
 		} = this.props
 
@@ -315,7 +317,7 @@ class ParallaxScrollView extends Component {
 		return (
 			<View
 				style={containerStyles}
-				onLayout={e => {
+				onLayout={!props.disableFooterCalc ? e => {
 					// Adjust the bottom height so we can scroll the parallax header all the way up.
 					const { nativeEvent: { layout: { height } } } = e
 					const footerHeight = Math.max(
@@ -328,7 +330,7 @@ class ParallaxScrollView extends Component {
 						})
 						this._footerHeight = footerHeight
 					}
-				}}
+				} : false }
 			>
 				{children}
 			</View>
