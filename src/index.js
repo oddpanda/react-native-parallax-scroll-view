@@ -89,7 +89,7 @@ class ParallaxScrollView extends Component {
 			style,
 			contentContainerStyle,
 			outputScaleValue,
-			disableFooterCalc
+			disableFooterCalc,
 			...scrollViewProps
 		} = this.props
 
@@ -111,6 +111,7 @@ class ParallaxScrollView extends Component {
 		const bodyComponent = this._wrapChildren(children, {
 			contentBackgroundColor,
 			stickyHeaderHeight,
+			disableFooterCalc,
 			contentContainerStyle
 		})
 		const footerSpacer = this._renderFooterSpacer({ contentBackgroundColor })
@@ -307,7 +308,7 @@ class ParallaxScrollView extends Component {
 
 	_wrapChildren(
 		children,
-		{ contentBackgroundColor, stickyHeaderHeight, contentContainerStyle }
+		{ contentBackgroundColor, stickyHeaderHeight, contentContainerStyle, disableFooterCalc }
 	) {
 		const { viewHeight } = this.state
 		const containerStyles = [{ backgroundColor: contentBackgroundColor }]
@@ -317,7 +318,7 @@ class ParallaxScrollView extends Component {
 		return (
 			<View
 				style={containerStyles}
-				onLayout={!props.disableFooterCalc ? e => {
+				onLayout={!disableFooterCalc ? e => {
 					// Adjust the bottom height so we can scroll the parallax header all the way up.
 					const { nativeEvent: { layout: { height } } } = e
 					const footerHeight = Math.max(
