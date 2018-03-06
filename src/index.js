@@ -314,7 +314,6 @@ class ParallaxScrollView extends Component {
 		const containerStyles = [{ backgroundColor: contentBackgroundColor }]
 
 		if (contentContainerStyle) containerStyles.push(contentContainerStyle)
-
 		return (
 			<View
 				style={containerStyles}
@@ -331,7 +330,10 @@ class ParallaxScrollView extends Component {
 						})
 						this._footerHeight = footerHeight
 					}
-				} : false }
+				} : e => {
+						return false;
+					}
+				}
 			>
 				{children}
 			</View>
